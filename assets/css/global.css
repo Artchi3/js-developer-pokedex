@@ -1,24 +1,187 @@
-* {
-    font-family: 'Roboto', sans-serif;
+*{ 
+    font-family: 'Roboto', sans-serif; 
     box-sizing: border-box;
 }
-
-body {
-    background-color: #f6f8fc;
+body{
+    background-color: #f6f8fc; 
 }
-
-.content {
-    width: 100vw;
-    height: 100vh;
+.pokeview{ 
     padding: 1rem;
-    background-color: #fff;
+    background-color: white;
+    height: 100vh;
 }
+.pokelist{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr ; 
+}
+.pokemon{
+    margin: .5rem;
+    padding: 1rem 1rem;
+    background-color: #14a06f8c; 
+    color: #fff; 
+    border-radius: 1rem;
+    min-height: 100px; 
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+} 
+.pokemon .pokebase{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    width: 100% ; 
+}
+.pokemon .pokebase .pokenumber{
+    border-style: none;
+    align-self: flex-start;
+    text-align: right;
+    opacity: 1;
+    color:#fff;
+    font-size: .625rem;
+}
+.pokemon .pokebase .pokename{
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+.pokemon .pokedetails{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+}
+.pokemon .pokedetails .poketypes{ 
+    width: auto;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.pokemon .pokedetails .poketypes .type{
+    background-color: #fff;
+    border: 0.2px solid white;
+    box-shadow: -5px 7px 18px -8px rgba(0,0,0,0.75);
+    color: #fff;
+    padding: .25rem .5rem;
+    font-size: .825rem; 
+    margin: .25rem 0;
+    border-radius: 1rem;
+    filter: brightness(1.1);
+    text-align: center;
 
-@media screen and (min-width: 992px) {
-    .content {
-        max-width: 992px;
-        height: auto;
-        margin: 1rem auto;
-        border-radius: 1rem;
+}
+.pokemon .pokedetails .pokesprite{
+    border-style: none;
+    max-width: 50%;
+    max-height: 150px;
+    width: auto;
+    height: auto;
+    align-self: flex-end;
+} 
+.pagination{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+}
+.pagination .button{
+    background-color: #6c79bd;
+    border-radius: 1rem;
+    color: white;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.625rem;
+    margin: 0.25rem 0;
+}
+/* POKETYPES */
+.normal{
+    background-color: #a6a8778a !important;
+}
+.grass{
+    background-color: #77c8508a !important;
+}
+.fire{
+    background-color: #ee7f308a !important;
+}
+.water{
+    background-color: #678fee8a !important;
+}
+.electric{
+    background-color: #f7cf2e8a !important;
+}
+.ice{
+    background-color: #98d5d78a !important;
+}
+.ground{
+    background-color: #dfbf698a !important;
+}
+.flying{
+    background-color: #a98ff08a !important;
+}
+.poison{
+    background-color: #a040a08a !important;
+}
+.fighting{
+    background-color: #bf30298a !important;
+}
+.psychic{
+    background-color: #f656878a !important;
+}
+.dark{
+    background-color: #7258478a !important;
+}
+.rock{
+    background-color: #b8a1378a !important;
+}
+.bug{
+    background-color: #a8b7208a !important;
+}
+.ghost{
+    background-color: #6e58968a !important;
+}
+.steel{
+    background-color: #b9b7cf8a !important;
+}
+.dragon{
+    background-color: #6f38f68a !important;
+}
+.fairy{
+    background-color: #f9aec78a !important;
+}
+ 
+@media screen and (min-width:270px) { 
+    .pokelist{
+        grid-template-columns: 1fr; 
     }
 }
+@media screen and (min-width:380px) { 
+    .pokelist{
+        grid-template-columns: 1fr 1fr; 
+    }
+}
+@media screen and (min-width:580px) { 
+    .pokelist{
+        grid-template-columns: 1fr 1fr 1fr; 
+    }
+}
+@media screen and (min-width:962px) {
+    body{
+        padding: 1rem 0;
+    }
+    .pokeview{
+        max-width: 962px;
+        margin: 0 auto;
+        border-radius: 1rem;
+        height: auto;
+    }
+    .pokelist{
+        grid-template-columns: 1fr 1fr 1fr 1fr; 
+    }
+}
+
