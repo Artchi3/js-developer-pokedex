@@ -3,7 +3,7 @@ const loadmorebtn = document.getElementById('loadmore')
 
 
 const maxrecord = 1025   
-const limit = 6
+const limit = 32
 let offset = 0  
 
 
@@ -35,79 +35,77 @@ function loadMorePokes(offset, limit){
                         <ul id="about${pokemon.number}" class="pokeinput${pokemon.number} about isActive">
                             <li class="data">
                                 <p>Specie</p>
-                                <b>seed</b>
+                                <b>${pokemon.page.pokespecie.egg[pokemon.page.pokespecie.egg.length-1]}</b>
                             </li>
                             <li class="data">
                                 <p>Height</p>
-                                <b>2'3</b>
+                                <b>${pokemon.page.altura}</b>
                             </li>
                             <li class="data">
                                 <p>Weight</p>
-                                <b>15lb</b>
+                                <b>${pokemon.page.peso}</b>
                             </li>
                             <li class="data">
                                 <p>Abilities</p>
-                                <b>OVGROW,CHLOROFIL</b>
+                                <b>${pokemon.page.hablidade}</b>
                             </li>
                             <span>BREEDING</span>
                             <li class="data">
                                 <p>Gender</p>
-                                <b>♂ 87% ♀ 12%</b>
+                                ${
+                                    pokemon.page.pokespecie.genero != 1 ? "<b>Genero Unico</b>":"<b>♂ "+(100-pokemon.page.pokespecie.genero)+" ♀"+pokemon.page.pokespecie.genero+"</b>"
+                                }
                             </li>
                             <li class="data">
                                 <p>EggGroup</p>
-                                <b>Monster</b>
+                                <b>${pokemon.page.pokespecie.egg[0]}</b>
                             </li>
                             <li class="data">
                                 <p>EggCycle</p>
-                                <b>Grass</b>
+                                <b>${pokemon.page.pokespecie.egg[1]? pokemon.page.pokespecie.egg[1]:pokemon.page.pokespecie.egg[0]}</b>
                             </li>
                         </ul>
                         <ul id="stats${pokemon.number}" class="pokeinput${pokemon.number} stats ">
                             <li class="data">
                                 <p>HP</p>
-                                <b>45</b> 
-                                <div></div>
+                                <b>${pokemon.page.hp}</b> 
+                                <div dratio=${pokemon.page.hp}></div>
                             </li>
                             <li class="data">
                                 <p>ATK</p>
-                                <b>60</b> 
-                                <div></div>
+                                <b>${pokemon.page.atk}</b> 
+                                <div dratio=${pokemon.page.atk}></div>
                             </li>
                             <li class="data">
                                 <p>DEF</p>
-                                <b>48</b> 
-                                <div></div>
+                                <b>${pokemon.page.def}</b> 
+                                <div dratio=${pokemon.page.def}></div>
                             </li>
                             <li class="data">
                                 <p>SP.ATK</p>
-                                <b>65</b> 
-                                <div></div>
+                                <b>${pokemon.page.spAt}</b> 
+                                <div dratio=${pokemon.page.spAt}></div>
+                            </li>
+                            <li class="data">
+                                <p>SP.DEF</p>
+                                <b>${pokemon.page.spDef}</b> 
+                                <div dratio=${pokemon.page.spDef}></div>
                             </li>
                             <li class="data">
                                 <p>SPEED</p>
-                                <b>45</b> 
-                                <div></div>
+                                <b>${pokemon.page.speed}</b> 
+                                <div dratio=${pokemon.page.speed}></div>
                             </li>
                             <li class="data">
                                 <p>TOTAL</p>
-                                <b>317</b> 
-                                <div></div>
+                                <b>${(pokemon.page.hp+pokemon.page.atk+pokemon.page.def+pokemon.page.spAt+pokemon.page.spDef+pokemon.page.speed)}</b> 
+                                <div dratio=${(pokemon.page.hp+pokemon.page.atk+pokemon.page.def+pokemon.page.spAt+pokemon.page.spDef+pokemon.page.speed)}></div>
                             </li>
                         </ul>
                         <ul id="evolution${pokemon.number}" class="pokeinput${pokemon.number} evolution ">
                             <li class="data">
-                                <p>Level</p>
-                                <b>Name</b>
-                            </li>
-                            <li class="data">
-                                <p>Level</p>
-                                <b>Name</b>
-                            </li>
-                            <li class="data">
-                                <p>Level</p>
-                                <b>Name</b>
-                            </li>
+                                <p>${pokemon.page.pokespecie.pokeevolution.evchain}</p> 
+                            </li> 
                         </ul>
                         <ul id="moves${pokemon.number}" class="moves pokeinput${pokemon.number}">
                             <li class="data">
@@ -127,21 +125,21 @@ function loadMorePokes(offset, limit){
     })  
 } 
 
-loadMorePokes(offset, 32) 
+loadMorePokes(offset, limit) 
 
 // 2 mount pokepage element on click & toggle card into viewModel
 function pokePage(e) {
     const pokeId =  e.getAttribute('id')  
     document.getElementById(pokeId).classList.add("isOpen"); 
     document.getElementById('poketable').classList.add("isOpen"); 
+
 } 
 
 function closePoke(){
     const isOpen = document.querySelectorAll('.isOpen')
     if(isOpen.length != 0){  
         for (let i = 0; i < isOpen.length; i++) {
-            const element = isOpen[i];
-            console.log('done', element.classList)
+            const element = isOpen[i]; 
             element.classList.toggle("isOpen");  
         } 
     }  
@@ -157,10 +155,7 @@ function navData(e) {
     const divisActive = document.querySelectorAll(`.pokeinput${navDataId}.isActive`) 
     
 
-    
-    console.log(`.${navClass}.isActive`, navisActive) 
-    console.log(`.pokeinput${navDataId}.isActive`,divisActive) 
-    console.log(querySelect)
+     
     if(navisActive.length != 0 && divisActive.length != 0 ){  
         for (let i = 0; i < navisActive.length; i++) {
             const element = navisActive[i];

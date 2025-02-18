@@ -4,9 +4,10 @@ class Pokemon{
     type;
     types = [];
     photo;  
+    page =[];
 } 
-class Pokepage{
-    especie;
+
+class Pokepage{  
     altura;
     peso;
     hablidade; 
@@ -16,13 +17,16 @@ class Pokepage{
     spAt;
     spDef;
     speed; 
-    pokespecie; 
+    pokespecie=[]
 }
+// nested on  https://pokeapi.co/api/v2/pokemon-species/1/
 class Pokespecies{
-    genero = [];
+    genero
     egg = []; 
-    pokeevolution;
+    pokeevolution = [];
 }
+
+// nested on https://pokeapi.co/api/v2/evolution-chain/1/
 class Pokevolution{ 
     evchain = [];
 }
