@@ -2,9 +2,10 @@ const pokeApi = {}
 
 function convertAPItoPokeData(pokeData){
     const pokemon = new Pokemon();
-    pokemon.number = pokeData.id;
-    pokemon.name = pokeData.name;
-
+    console.log(pokeData.id)
+    console.log(pokeData.id)
+    pokemon.number= `${pokeData.id}`;
+    pokemon.name = pokeData.name; 
     const types = pokeData.types.map((typeSlot)=>typeSlot.type.name);
     const [type] = types;
 

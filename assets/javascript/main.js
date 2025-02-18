@@ -13,7 +13,7 @@ function loadMorePokes(offset, limit){
                 <li onclick="pokePage(this)" id="${pokemon.number}" class="pokemon ${pokemon.type}">
                     <div class="pokebase"> 
                         <span class="pokenumber">
-                            ${pokemon.number}
+                            #${pokemon.number.padStart(4, '0')}
                         </span>
                         <span class="pokename">${pokemon.name}</span>
                         <button onclick="window.event.cancelBubble = true; closePoke()" id="closer"></button>
