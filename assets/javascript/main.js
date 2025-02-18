@@ -9,7 +9,13 @@ let offset = 0
 
 function loadMorePokes(offset, limit){  
     pokeApi.getPokemons(offset, limit).then((pokemons = []) =>{  
-        const newHtml = pokemons.map((pokemon) => `
+        const newHtml = pokemons.map((pokemon) => {
+            const species;
+            const ppage;
+            const evchain;
+            const totalStats;
+
+            const htmlFormat = `
                 <li onclick="pokePage(this)" id="${pokemon.number}" class="pokemon ${pokemon.type}">
                     <div class="pokebase"> 
                         <span class="pokenumber">
@@ -120,7 +126,9 @@ function loadMorePokes(offset, limit){
                         </ul>
                     </div>
                 </li>  
-                `).join('');  
+                `
+            return htmlFormat ;
+        }).join('') 
         pokemonTable.innerHTML += newHtml  
     })  
 } 
