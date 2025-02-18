@@ -40,8 +40,7 @@ const pokeApi = {}
 //     return pokemon
 // }
 
-async function convertAPItoPokeData(pokeData){
-    console.log('pokeData',pokeData) 
+async function convertAPItoPokeData(pokeData){ 
     const pokemon = new Pokemon(); 
     const pokePage = new Pokepage();  
 
@@ -61,8 +60,7 @@ async function convertAPItoPokeData(pokeData){
     pokePage.peso = pokeData.weight;
 
     const status = pokeData.stats.map((stat)=> stat.base_stat) 
-    const ability = pokeData.abilities.map((abilitie) => abilitie.ability.name) 
-
+    const ability = pokeData.abilities.map((abilitie) => abilitie.ability.name)  
     pokePage.hablidade = ability;
     pokePage.hp = status[0];
     pokePage.atk = status[1];

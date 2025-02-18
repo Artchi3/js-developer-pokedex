@@ -6,16 +6,13 @@ const maxrecord = 1025
 const limit = 32
 let offset = 0  
 
+function convertPokeLi(pokemon){
+    const pkpage = pokemon.page;
+    const species = pokemon.page.pokespecie;
+    const evchain = pokemon.page.pokespecie.pokeevolution.evchain.toString().replaceAll(',',' > ');
+    const totalStats = (pokemon.page.hp+pokemon.page.atk+pokemon.page.def+pokemon.page.spAt+pokemon.page.spDef+pokemon.page.speed);
 
-function loadMorePokes(offset, limit){  
-    pokeApi.getPokemons(offset, limit).then((pokemons = []) =>{  
-        const newHtml = pokemons.map((pokemon) => {
-            const species;
-            const ppage;
-            const evchain;
-            const totalStats;
-
-            const htmlFormat = `
+    return `
                 <li onclick="pokePage(this)" id="${pokemon.number}" class="pokemon ${pokemon.type}">
                     <div class="pokebase"> 
                         <span class="pokenumber">
@@ -36,99 +33,103 @@ function loadMorePokes(offset, limit){
                             <li onclick="navData(this)" dataid="${pokemon.number}" datanav="about" id="navGateAbout${pokemon.number}" class="navGate${pokemon.number} isActive">About</li>
                             <li onclick="navData(this)" dataid="${pokemon.number}" datanav="stats" id="navGateStats${pokemon.number}" class="navGate${pokemon.number}">Base Stats</li>
                             <li onclick="navData(this)" dataid="${pokemon.number}" datanav="evolution" id="navGateEvolution${pokemon.number}" class="navGate${pokemon.number}">Evolution</li>
-                            <li onclick="navData(this)" dataid="${pokemon.number}" datanav="moves" id="navGateMoves${pokemon.number}" class="navGate${pokemon.number}">Moves</li>
                         </ul>
                         <ul id="about${pokemon.number}" class="pokeinput${pokemon.number} about isActive">
                             <li class="data">
                                 <p>Specie</p>
-                                <b>${pokemon.page.pokespecie.egg[pokemon.page.pokespecie.egg.length-1]}</b>
+                                <b>${species.egg[species.egg.length-1]}</b>
                             </li>
                             <li class="data">
                                 <p>Height</p>
-                                <b>${pokemon.page.altura}</b>
+                                <b>${pkpage.altura}</b>
                             </li>
                             <li class="data">
                                 <p>Weight</p>
-                                <b>${pokemon.page.peso}</b>
+                                <b>${pkpage.peso}</b>
                             </li>
                             <li class="data">
                                 <p>Abilities</p>
-                                <b>${pokemon.page.hablidade}</b>
+                                <b>${pkpage.hablidade}</b>
                             </li>
                             <span>BREEDING</span>
                             <li class="data">
                                 <p>Gender</p>
                                 ${
-                                    pokemon.page.pokespecie.genero != 1 ? "<b>Genero Unico</b>":"<b>♂ "+(100-pokemon.page.pokespecie.genero)+" ♀"+pokemon.page.pokespecie.genero+"</b>"
+                                    species.genero != 1 ? "<b>Genero Unico</b>":"<b>♂ "+(100-species.genero)+" ♀"+species.genero+"</b>"
                                 }
                             </li>
                             <li class="data">
                                 <p>EggGroup</p>
-                                <b>${pokemon.page.pokespecie.egg[0]}</b>
+                                <b>${species.egg[0]}</b>
                             </li>
                             <li class="data">
                                 <p>EggCycle</p>
-                                <b>${pokemon.page.pokespecie.egg[1]? pokemon.page.pokespecie.egg[1]:pokemon.page.pokespecie.egg[0]}</b>
+                                <b>${species.egg[1]? species.egg[1]:species.egg[0]}</b>
                             </li>
                         </ul>
                         <ul id="stats${pokemon.number}" class="pokeinput${pokemon.number} stats ">
-                            <li class="data">
+                            <li class=" data">
                                 <p>HP</p>
                                 <b>${pokemon.page.hp}</b> 
-                                <div dratio=${pokemon.page.hp}></div>
+                                <div class="hp">
+                                    <label style="width:${pokemon.page.hp}px !important"></label>
+                                </div>
                             </li>
-                            <li class="data">
+                            <li class=" data">
                                 <p>ATK</p>
                                 <b>${pokemon.page.atk}</b> 
-                                <div dratio=${pokemon.page.atk}></div>
+                                <div class="atk">
+                                    <label style="width:${pokemon.page.atk}px !important"></label>
+                                </div>
                             </li>
-                            <li class="data">
+                            <li class=" data">
                                 <p>DEF</p>
                                 <b>${pokemon.page.def}</b> 
-                                <div dratio=${pokemon.page.def}></div>
+                                <div class="def">
+                                    <label style="width:${pokemon.page.def}px !important"></label>
+                                </div>
                             </li>
-                            <li class="data">
+                            <li class=" data">
                                 <p>SP.ATK</p>
                                 <b>${pokemon.page.spAt}</b> 
-                                <div dratio=${pokemon.page.spAt}></div>
+                                <div class="spatk">
+                                    <label style="width:${pokemon.page.spAt}px !important"></label>
+                                </div>
                             </li>
-                            <li class="data">
+                            <li class=" data">
                                 <p>SP.DEF</p>
                                 <b>${pokemon.page.spDef}</b> 
-                                <div dratio=${pokemon.page.spDef}></div>
+                                <div class="spdef">
+                                    <label style="width:${pokemon.page.spDef}px !important"></label>
+                                </div>
                             </li>
-                            <li class="data">
+                            <li class=" data">
                                 <p>SPEED</p>
                                 <b>${pokemon.page.speed}</b> 
-                                <div dratio=${pokemon.page.speed}></div>
+                                <div class="speed">
+                                    <label style="width:${pokemon.page.speed}px !important"></label>
+                                </div>
                             </li>
-                            <li class="data">
+                            <li class=" data">
                                 <p>TOTAL</p>
-                                <b>${(pokemon.page.hp+pokemon.page.atk+pokemon.page.def+pokemon.page.spAt+pokemon.page.spDef+pokemon.page.speed)}</b> 
-                                <div dratio=${(pokemon.page.hp+pokemon.page.atk+pokemon.page.def+pokemon.page.spAt+pokemon.page.spDef+pokemon.page.speed)}></div>
+                                <b>${totalStats}</b> 
+                                <div class="total">
+                                    <label style="width:${totalStats}px !important"></label>
+                                </div>
                             </li>
                         </ul>
                         <ul id="evolution${pokemon.number}" class="pokeinput${pokemon.number} evolution ">
                             <li class="data">
-                                <p>${pokemon.page.pokespecie.pokeevolution.evchain}</p> 
+                                <p>${evchain}</p> 
                             </li> 
-                        </ul>
-                        <ul id="moves${pokemon.number}" class="moves pokeinput${pokemon.number}">
-                            <li class="data">
-                                <p>MoveName</p>
-                            </li>
-                            <li class="data">
-                                <p>MoveName</p>
-                            </li>
-                            <li class="data">
-                                <p>MoveName</p>
-                            </li>
-                        </ul>
+                        </ul> 
                     </div>
                 </li>  
-                `
-            return htmlFormat ;
-        }).join('') 
+        ` 
+}
+function loadMorePokes(offset, limit){  
+    pokeApi.getPokemons(offset, limit).then((pokemons = []) =>{  
+        const newHtml = pokemons.map(convertPokeLi).join('') 
         pokemonTable.innerHTML += newHtml  
     })  
 } 

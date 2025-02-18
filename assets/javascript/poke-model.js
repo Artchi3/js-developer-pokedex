@@ -17,7 +17,7 @@ class Pokepage{
     spAt;
     spDef;
     speed; 
-    pokespecie=[]
+    pokespecie=[]; 
 }
 // nested on  https://pokeapi.co/api/v2/pokemon-species/1/
 class Pokespecies{
